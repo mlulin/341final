@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="stylesheet" href="finalstyle.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="intro.html">Home</a></li>
+                <li><a href="videos.html">Fitness Videos</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page 4: Contact Information -->
+
+
+        <div class="letter-wrapper">
+            <div class="letter" onclick="openLetter()">
+                <div class="letter-text">Click to open</div>
+                <div class="letter-top"></div>
+                <div class="letter-bottom">
+                    <p class="contact-info">
+                        Email: contact@fitlife.com<br>
+                        Phone: +123 456 7890<br>
+                        Address: 123 FitLife Street, Healthy City
+                    </p>
+                </div>
+            </div>
+        </div>
+        <form class="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </main>
+
+        
+    <script>
+        function openLetter() {
+            document.querySelector('.letter').classList.add('open');
+        }
+    
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+    </script>
+</body>
+
+</html>

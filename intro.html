@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="stylesheet" href="finalstyle.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="intro.html">Home</a></li>
+                <li><a href="videos.html">Fitness Videos</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page 1: Introduction -->
+        <section id="intro" class="page">
+            <div class="animation" id="animation">Welcome to FitLife!</div>
+            <div class="intro-text">
+                <p class="typing-effect">Your ultimate guide to fitness, nutrition, and wellness. Join us to stay active
+                    and healthy!</p>
+                <a href="videos.html" class="start-button">Start Your Journey</a>
+            </div>
+        </section>
+        <div id="floating-messages"></div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const animation = document.getElementById('animation');
+            const introText = document.querySelector('.intro-text');
+            const typingEffect = document.querySelector('.typing-effect');
+            const floatingMessages = document.getElementById('floating-messages');
+
+            const encouragementMessages = [
+                "You can do it!",
+                "Stay strong and focused!",
+                "Consistency is the key!",
+                "Believe in yourself!",
+                "One step at a time!",
+                "Hard work pays off!",
+                "Embrace the journey!",
+                "Your body deserves care!",
+                "Push your limits!",
+                "Never give up!",
+                "Celebrate small victories!",
+                "Strength comes from struggle!",
+                "Be proud of your progress!",
+                "Your health is your wealth!",
+                "Dream big, work hard!",
+                "Stay hydrated and active!",
+                "Fitness is a lifestyle!",
+                "You’re unstoppable!",
+                "Fuel your body wisely!",
+                "Dedication wins!",
+                "Focus on your goals!",
+                "Small steps lead to big changes!",
+                "No excuses, just progress!",
+                "Every rep counts!",
+                "Wake up and work out!",
+                "Sweat, smile, repeat!",
+                "Find your strength!",
+                "Your future self will thank you!",
+                "A stronger you starts today!"
+            ];
+
+            // Hamburger Menu Toggle
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+
+            // Trigger Welcome Animation
+            animation.classList.add('animate');
+
+            // Wait for Welcome Animation to Finish
+            setTimeout(() => {
+                // Show Intro Text
+                introText.classList.add('show');
+
+                // Start Typing Effect
+                typingEffect.style.animation = 'typing 6s steps(80, end), blink 0.5s step-end infinite alternate';
+
+                // Start Floating Messages
+                setTimeout(() => {
+                    encouragementMessages.forEach((message, index) => {
+                        setTimeout(() => {
+                            createFloatingMessage(message);
+                        }, index * 1000); // 延迟每条消息的出现，1秒间隔
+                    });
+                }, 6000); // 在打字效果完成后启动弹幕
+            }, 4000); // 匹配欢迎动画持续时间
+
+            // 创建单个弹幕消息
+            function createFloatingMessage(message) {
+                const span = document.createElement('span');
+                span.textContent = message;
+                span.className = 'floating-message';
+
+                // 随机化样式
+                const colors = ['#ff69b4', '#1e90ff', '#32cd32', '#ffa500', '#8a2be2', '#ff4500'];
+                const fontSize = Math.random() * (24 - 16) + 16; // 字体大小 16px - 24px
+                const duration = Math.random() * (15 - 8) + 8; // 漂浮时间 8s - 15s
+                const startX = Math.random() * 100; // 初始位置 (横坐标)
+                const startY = Math.random() * 100; // 初始位置 (纵坐标)
+
+                span.style.color = colors[Math.floor(Math.random() * colors.length)]; // 随机颜色
+                span.style.fontSize = `${fontSize}px`; // 随机字体大小
+                span.style.top = `${startY}vh`; // 随机纵坐标
+                span.style.left = `${startX}vw`; // 随机横坐标
+                span.style.animationDuration = `${duration}s`; // 随机漂浮速度
+
+                floatingMessages.appendChild(span);
+
+                // 移除弹幕以节省资源
+                setTimeout(() => {
+                    span.remove();
+                }, duration * 1000); // 在动画结束后移除
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

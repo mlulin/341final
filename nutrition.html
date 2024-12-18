@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="stylesheet" href="finalstyle.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="intro.html">Home</a></li>
+                <li><a href="videos.html">Fitness Videos</a></li>
+                <li><a href="nutrition.html">Nutrition</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page 3: Nutrition Suggestions -->
+        <section id="nutrition" class="page">
+            <h2>Nutrition Suggestions</h2>
+            <p>Discover dietary tips and suggestions to enhance your fitness journey.</p>
+            <form id="nutrition-form">
+                <label for="ingredients">Enter Ingredients (comma-separated):</label>
+                <input type="text" id="ingredients" placeholder="e.g., 1 apple, 100g chicken, 1 cup milk" required />
+                <button type="submit">Get Nutrition Info</button>
+            </form>
+            <div id="nutrition-results">
+                <!-- Nutrition data will be displayed here -->
+            </div>
+
+            <div id="nutrition-tips">
+                <h3>Nutrition Tips for Girls</h3>
+                <ul>
+                    <li><strong>Protein Needs:</strong> Women need about 46 grams of protein daily. Active women may
+                        need 1.2–2.0 grams per kilogram of body weight.</li>
+                    <li><strong>Iron:</strong> Include iron-rich foods like spinach, lentils, and red meat, especially
+                        during menstruation. Combine plant-based iron with Vitamin C for better absorption.</li>
+                    <li><strong>Calcium:</strong> Aim for 1,000 mg daily from dairy products or alternatives like tofu,
+                        kale, and almonds.</li>
+                    <li><strong>Omega-3 Fatty Acids:</strong> Found in salmon, chia seeds, and walnuts, these support
+                        hormonal health and reduce inflammation.</li>
+                    <li><strong>Hydration:</strong> Drink at least 2.7 liters (11 cups) of water per day.</li>
+                    <li><strong>Fiber:</strong> Women should consume 25 grams of fiber daily from whole grains, fruits,
+                        and vegetables.</li>
+                    <li><strong>Healthy Fats:</strong> Avocados, nuts, and olive oil provide essential fats for hormone
+                        production and skin health.</li>
+                    <li><strong>Vitamin D:</strong> Sunlight, fortified cereals, and fatty fish help maintain bone and
+                        immune health.</li>
+                    <li><strong>Menstrual Health:</strong> Include magnesium (nuts, seeds), iron, and Vitamin B6
+                        (bananas, potatoes) to ease cramps and improve mood.</li>
+                </ul>
+            </div>
+        </section>
+
+        <script>
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+
+            const form = document.getElementById('nutrition-form');
+            const resultsDiv = document.getElementById('nutrition-results');
+
+            // Edamam API credentials
+            require('dotenv').config();  // 加载环境变量
+
+            const API_ID = process.env.API_ID;
+            const API_KEY = process.env.API_KEY;
+
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent form submission
+
+                const ingredients = document.getElementById('ingredients').value.trim();
+                if (!ingredients) {
+                    resultsDiv.innerHTML = '<p>Please enter ingredients to get nutrition info.</p>';
+                    return;
+                }
+
+                const apiUrl = `https://api.edamam.com/api/nutrition-data?app_id=${API_ID}&app_key=${API_KEY}&ingr=${encodeURIComponent(ingredients)}`;
+
+                // Clear previous results and show loading text
+                resultsDiv.innerHTML = '<p>Loading...</p>';
+
+                try {
+                    // Fetch data from the API
+                    console.log(apiUrl); // Debug the API URL
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    console.log(data); // Debug the API response
+                    if (data.totalNutrients) {
+                        displayNutritionData(data);
+                    } else {
+                        resultsDiv.innerHTML = '<p>No nutrition data found. Please try again with valid ingredients (e.g., "1 apple").</p>';
+                    }
+                } catch (error) {
+                    console.error('Error fetching nutrition data:', error);
+                    resultsDiv.innerHTML = '<p>Something went wrong. Please try again later.</p>';
+                }
+            });
+
+            function displayNutritionData(data) {
+                // Clear the results area
+                resultsDiv.innerHTML = '';
+                const nutrients = data.totalNutrients;
+                for (const key in nutrients) {
+                    if (nutrients.hasOwnProperty(key)) {
+                        const nutrient = nutrients[key];
+                        const nutrientDiv = document.createElement('div');
+                        nutrientDiv.classList.add('nutrition-item');
+                        nutrientDiv.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+                        resultsDiv.appendChild(nutrientDiv);
+                    }
+                }
+            }
+
+
+        </script>
+</body>
+
+</html>
