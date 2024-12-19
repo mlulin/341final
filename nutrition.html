@@ -66,7 +66,12 @@
         <script>
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('nav-links');
-            
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+
+
             const form = document.getElementById('nutrition-form');
             const resultsDiv = document.getElementById('nutrition-results');
 
