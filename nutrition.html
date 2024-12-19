@@ -75,8 +75,10 @@
             const resultsDiv = document.getElementById('nutrition-results');
 
             // Edamam API credentials
-            const API_ID = `${import.meta.env.VITE_API_ID}`;
-            const API_KEY = `${import.meta.env.VITE_API_KEY}`;
+           require('dotenv').config();
+            const API_ID = process.env.API_ID;
+            const API_KEY = process.env.API_KEY;
+
             
             form.addEventListener('submit', async (e) => {
                 e.preventDefault(); // Prevent form submission
