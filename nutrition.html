@@ -17,7 +17,7 @@
                 <div></div>
             </div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="intro.html">Home</a></li>
                 <li><a href="videos.html">Fitness Videos</a></li>
                 <li><a href="nutrition.html">Nutrition</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -66,19 +66,12 @@
         <script>
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('nav-links');
-
-            hamburger.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-            });
-
             const form = document.getElementById('nutrition-form');
             const resultsDiv = document.getElementById('nutrition-results');
 
-            // Edamam API credentials
-            const API_ID = "dadbe396";
-            const API_KEY = "530f14c629bb5395b0c21bc75751be95	—";
-
-            console.log(`API ID: ${API_ID}, API Key: ${API_KEY}`);
+            // Replace with your actual Edamam API credentials
+            const API_ID = 'dadbe396';
+            const API_KEY = '530f14c629bb5395b0c21bc75751be95'; // Corrected key
 
             form.addEventListener('submit', async (e) => {
                 e.preventDefault(); // Prevent form submission
@@ -125,10 +118,8 @@
                         resultsDiv.appendChild(nutrientDiv);
                     }
                 }
-            }
+            }</script>
 
-
-        </script>
 </body>
 
 </html>
